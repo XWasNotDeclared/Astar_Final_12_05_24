@@ -18,11 +18,11 @@ white = (255,255,255)
 black = (0,0,0)
 cyan  = (0,255,229) # start color
 red   = (255,0,0)   # dest color
-blue  = (0,8,255)   # close color
-green = (163, 155, 5)  # open color
-yellow= (245,255,0) #path color
-dark_red = (125,0,0)
-light_red = (171, 7, 168) #curent cell color
+blue  = (89, 191, 255)   # close color
+green = (38, 255, 74)  # open color
+yellow= (255, 246, 69) #path color
+dark_red = (255, 169, 89)
+light_red = (255, 51, 238) #curent cell color
 gray = (217, 216, 212) #gray
 
 def draw_maze(WIN, maze,cell_size):
@@ -36,7 +36,7 @@ def draw_maze(WIN, maze,cell_size):
                 color = white
             pygame.draw.rect(WIN,color,(col*cell_size,row*cell_size,cell_size,cell_size),0)
 
-def draw_cell(WIN,cell_size, cell_coord, text, bg_color, text_color = gray):
+def draw_cell(WIN,cell_size, cell_coord, text, bg_color, text_color = black):
     text_size = int(cell_size*9/35)
     Font = pygame.font.Font(None,text_size)
     pygame.draw.rect(WIN, bg_color, (cell_coord[1]*cell_size, cell_coord[0]*cell_size, cell_size, cell_size),0)

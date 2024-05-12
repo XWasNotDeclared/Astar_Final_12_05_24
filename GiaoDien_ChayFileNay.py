@@ -89,7 +89,7 @@ def main():
         entry_boxes.append(entry)
 
         # Set default values
-    entry_boxes[0].insert(0, '65,130')  # Default Textbox
+    entry_boxes[0].insert(0, '12,24')  # Default Textbox
     entry_boxes[1].insert(0, '0.3')  # Default Textbox
     entry_boxes[2].insert(0, '0')  # Default Textbox
     entry_boxes[3].insert(0, 'Auto')  # Default Textbox
