@@ -165,4 +165,4 @@ def Astar(grid,start, dest, num_directional_offset = 8):
     return -1
 
 if __name__ == "__main__":
-        print (Astar(grid, [rows-1,0], [0,cols-1],4))
+        print ("Path: "+str(Astar(grid, [rows-1,0], [0,cols-1],4)))

@@ -19,10 +19,11 @@ black = (0,0,0)
 cyan  = (0,255,229) # start color
 red   = (255,0,0)   # dest color
 blue  = (0,8,255)   # close color
-green = (0,255,85)  # open color
+green = (0, 173, 133)  # open color
 yellow= (245,255,0) #path color
 dark_red = (125,0,0)
-light_red = (255, 129, 117) #curent cell color
+light_red = (171, 7, 168) #curent cell color
+gray = (217, 216, 212) #gray
 
 def draw_maze(WIN, maze,cell_size):
     rows = len(maze)
@@ -35,28 +36,34 @@ def draw_maze(WIN, maze,cell_size):
                 color = white
             pygame.draw.rect(WIN,color,(col*cell_size,row*cell_size,cell_size,cell_size),0)
 
-def draw_cell(WIN,cell_size, cell_coord, text, bg_color, text_color = black):
+def draw_cell(WIN,cell_size, cell_coord, text, bg_color, text_color = gray):
     text_size = int(cell_size*9/35)
     Font = pygame.font.Font(None,text_size)
     pygame.draw.rect(WIN, bg_color, (cell_coord[1]*cell_size, cell_coord[0]*cell_size, cell_size, cell_size),0)
-    ##
-    text_surface = Font.render(text[0],True,text_color)
-    #text_width, text_height = text_surface.get_size()
-    #text_position = ((cell[1]*cell_size - text_height)//2, (cell[0]*cell_size - text_width)//2)
-    text_position = (cell_coord[1]*cell_size, cell_coord[0]*cell_size)
-    WIN.blit (text_surface, text_position)
-    ##
-    text_surface = Font.render(text[1],True,text_color)
-    text_position = (cell_coord[1]*cell_size, cell_coord[0]*cell_size + text_size)
-    WIN.blit (text_surface, text_position)
-    ##
-    text_surface = Font.render(text[2],True,text_color)
-    text_position = (cell_coord[1]*cell_size, cell_coord[0]*cell_size + 2*text_size)
-    WIN.blit (text_surface, text_position)
-    ##
-    text_surface = Font.render(text[3],True,text_color)
-    text_position = (cell_coord[1]*cell_size, cell_coord[0]*cell_size + 3*text_size)
-    WIN.blit (text_surface, text_position)
+    for i,item in enumerate(text):
+        ##
+        text_surface = Font.render(item,True,text_color)
+        text_position = (cell_coord[1]*cell_size, cell_coord[0]*cell_size + i*text_size)
+        WIN.blit (text_surface, text_position)
+
+
+
+    # ##
+    # text_surface = Font.render(text[0],True,text_color)
+    # text_position = (cell_coord[1]*cell_size, cell_coord[0]*cell_size)
+    # WIN.blit (text_surface, text_position)
+    # ##
+    # text_surface = Font.render(text[1],True,text_color)
+    # text_position = (cell_coord[1]*cell_size, cell_coord[0]*cell_size + text_size)
+    # WIN.blit (text_surface, text_position)
+    # ##
+    # text_surface = Font.render(text[2],True,text_color)
+    # text_position = (cell_coord[1]*cell_size, cell_coord[0]*cell_size + 2*text_size)
+    # WIN.blit (text_surface, text_position)
+    # ##
+    # text_surface = Font.render(text[3],True,text_color)
+    # text_position = (cell_coord[1]*cell_size, cell_coord[0]*cell_size + 3*text_size)
+    # WIN.blit (text_surface, text_position)
 
 
     pygame.display.update((cell_coord[1]*cell_size, cell_coord[0]*cell_size, cell_size, cell_size))
@@ -123,7 +130,8 @@ def detail_cell(grid_infor, cell):
     h = round(grid_infor[cell[0]][cell[1]].h, 2)
     f = round(grid_infor[cell[0]][cell[1]].f, 2)
     parent = grid_infor[cell[0]][cell[1]].parent
-    return ['g: '+str(g),'h: '+str(h),'f: '+str(f),'par: '+str(parent)]
+    return ["[g,h,f]",str([g,h,f]),"par: ",str(parent),]
+    # return ['g: '+str(g),'h: '+str(h),'f: '+str(f),'par: '+str(parent)]
 
 def cal_cell_size(grid,width,height):
     rows = len(grid)
