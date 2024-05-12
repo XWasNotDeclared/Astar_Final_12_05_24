@@ -141,7 +141,7 @@ def Astar(grid,start, dest, num_directional_offset = 8):
                 if is_destination(next_cell,dest):
                     #draw_cell(WIN,dest,detail_cell(grid_infor,dest),dark_red)
                     grid_infor[next_cell[0]][next_cell[1]].parent = current_cell
-                    print("v2" + str(length_closed_list(is_close_cell)))
+                    print("close cell: " + str(length_closed_list(is_close_cell)))
                     return trace_path(grid_infor, start, dest)
                 
                 else:
