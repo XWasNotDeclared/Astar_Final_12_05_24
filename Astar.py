@@ -46,13 +46,19 @@ def draw_maze(WIN, maze,cell_size,border_width):
             pygame.draw.rect(WIN,color,(col*cell_size+border_width,row*cell_size+border_width,cell_size-2*border_width,cell_size-2*border_width),0)
 
 def draw_cell(WIN,cell_size,border_width, cell_coord, text, bg_color, text_color = black):
-    text_size = int(cell_size*9/35)
+    # max_len_text = max([len(i) for i in text])
+    # text_size = int(cell_size//max_len_text*5)
+    # print(max_len_text)
+    # print(cell_size)
+    # print(text_size)
+    text_size = int(cell_size*10/35)
+
     Font = pygame.font.Font(None,text_size)
     pygame.draw.rect(WIN, bg_color, (cell_coord[1]*cell_size+border_width, cell_coord[0]*cell_size+border_width, cell_size-2*border_width, cell_size-2*border_width),0)
     for i,item in enumerate(text):
         ##
         text_surface = Font.render(item,True,text_color)
-        text_position = (cell_coord[1]*cell_size, cell_coord[0]*cell_size + i*text_size)
+        text_position = (cell_coord[1]*cell_size, cell_coord[0]*cell_size + i*(text_size-text_size*0.3))
         WIN.blit (text_surface, text_position)
 
 
@@ -139,7 +145,7 @@ def detail_cell(grid_infor, cell):
     h = round(grid_infor[cell[0]][cell[1]].h, 2)
     f = round(grid_infor[cell[0]][cell[1]].f, 2)
     parent = grid_infor[cell[0]][cell[1]].parent
-    return ["[g,h,f]",str([g,h,f]),"par: ",str(parent),]
+    return [str(cell),str([g,h,f]),"p"+str(parent),]
     # return ['g: '+str(g),'h: '+str(h),'f: '+str(f),'par: '+str(parent)]
 
 def cal_cell_size(grid,width,height):
@@ -158,7 +164,7 @@ def Astar(grid,start, dest,delay_time,chooseHeuristic,WIDTH = 1350,HEIGHT=650, n
     # cols = len(grid[0])
 
     cell_size = cal_cell_size(grid,WIDTH,HEIGHT)
-    border_width = cell_size*0.00001
+    border_width = cell_size*0.01
     WIDTH = cell_size*GRID_COL
     HEIGHT = cell_size*GRID_ROW
 

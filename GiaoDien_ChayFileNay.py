@@ -46,10 +46,10 @@ def start(entry_boxes,  radio_var_choose_heu,radio_var_gen_maze):
         dest=[int(x) for x in text_values[4].split(',')]
     
 
-    
+    ### Avoid wall in start and dest##
     grid[start[0]][start[1]] = 0
     grid[dest[0]][dest[1]] = 0
-
+    ##############################
 
     delay = int(text_values[2])
 
