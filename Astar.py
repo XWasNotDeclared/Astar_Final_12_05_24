@@ -29,10 +29,10 @@ wall_color=(31, 31, 31)
 not_wall_color = white
 
 
-border_width = 0.5
 
 
-def draw_maze(WIN, maze,cell_size):
+
+def draw_maze(WIN, maze,cell_size,border_width):
     rows = len(maze)
     cols = len(maze[0])
     for row in range(rows):
@@ -45,7 +45,7 @@ def draw_maze(WIN, maze,cell_size):
             pygame.draw.rect(WIN,border_color,(col*cell_size,row*cell_size,cell_size,cell_size),0)
             pygame.draw.rect(WIN,color,(col*cell_size+border_width,row*cell_size+border_width,cell_size-2*border_width,cell_size-2*border_width),0)
 
-def draw_cell(WIN,cell_size, cell_coord, text, bg_color, text_color = black):
+def draw_cell(WIN,cell_size,border_width, cell_coord, text, bg_color, text_color = black):
     text_size = int(cell_size*9/35)
     Font = pygame.font.Font(None,text_size)
     pygame.draw.rect(WIN, bg_color, (cell_coord[1]*cell_size+border_width, cell_coord[0]*cell_size+border_width, cell_size-2*border_width, cell_size-2*border_width),0)
@@ -100,7 +100,7 @@ def out_of_grid(grid_row, grid_col, cell):
 def is_destination(cell, dest):
     return cell[0] == dest[0] and cell[1] == dest[1]
 
-def trace_path(WIN,cell_size,grid_infor, start, dest):
+def trace_path(WIN,cell_size,border_width,grid_infor, start, dest):
     path = []
     current = dest
     while current != start:
@@ -110,10 +110,10 @@ def trace_path(WIN,cell_size,grid_infor, start, dest):
     path.reverse()
     ##pygame##
     for cell in path:
-        draw_cell(WIN,cell_size,cell,detail_cell(grid_infor,cell),yellow)
+        draw_cell(WIN,cell_size,border_width,cell,detail_cell(grid_infor,cell),yellow)
 
-    draw_cell(WIN,cell_size,start,detail_cell(grid_infor,start),cyan)
-    draw_cell(WIN,cell_size,dest,detail_cell(grid_infor,dest),dark_red)
+    draw_cell(WIN,cell_size,border_width,start,detail_cell(grid_infor,start),cyan)
+    draw_cell(WIN,cell_size,border_width,dest,detail_cell(grid_infor,dest),dark_red)
 
     running = True
     while running:
@@ -158,6 +158,7 @@ def Astar(grid,start, dest,delay_time,chooseHeuristic,WIDTH = 1350,HEIGHT=650, n
     # cols = len(grid[0])
 
     cell_size = cal_cell_size(grid,WIDTH,HEIGHT)
+    border_width = cell_size*0.00001
     WIDTH = cell_size*GRID_COL
     HEIGHT = cell_size*GRID_ROW
 
@@ -218,10 +219,10 @@ def Astar(grid,start, dest,delay_time,chooseHeuristic,WIDTH = 1350,HEIGHT=650, n
     open_list.push((0.0,start)) # add start to open_list with f_start is 0
 
 
-    draw_maze(WIN,grid,cell_size)
+    draw_maze(WIN,grid,cell_size,border_width)
     pygame.display.update()
-    draw_cell(WIN,cell_size,start,detail_cell(grid_infor,start),cyan)
-    draw_cell(WIN,cell_size,dest,detail_cell(grid_infor,dest),red)
+    draw_cell(WIN,cell_size,border_width,start,detail_cell(grid_infor,start),cyan)
+    draw_cell(WIN,cell_size,border_width,dest,detail_cell(grid_infor,dest),red)
 
     running = True
     while not open_list.isEmpty() and running:
@@ -235,21 +236,21 @@ def Astar(grid,start, dest,delay_time,chooseHeuristic,WIDTH = 1350,HEIGHT=650, n
 
         #print (open_list)
         current_cell = open_list.pop()[1] # get the coordinate of cell with smallest h
-        draw_cell(WIN,cell_size,current_cell,detail_cell(grid_infor,current_cell),light_red)
+        draw_cell(WIN,cell_size,border_width,current_cell,detail_cell(grid_infor,current_cell),light_red)
         pygame.time.delay(delay_time)###########################################################
         is_close_cell[current_cell[0]][current_cell[1]] = True # set current_cell is close
         ##print (current_cell)
-        draw_cell(WIN,cell_size,current_cell,detail_cell(grid_infor, current_cell),blue)
-        draw_cell(WIN,cell_size,start,detail_cell(grid_infor,start),cyan)
+        draw_cell(WIN,cell_size,border_width,current_cell,detail_cell(grid_infor, current_cell),blue)
+        draw_cell(WIN,cell_size,border_width,start,detail_cell(grid_infor,start),cyan)
 
         for direction in directional_offset:
             next_cell = [current_cell[0] + direction[0], current_cell[1] + direction[1]]
             if (not out_of_grid(GRID_ROW, GRID_COL, next_cell)) and (not is_wall(grid,next_cell)) and (not is_close_cell[next_cell[0]][next_cell[1]]) :
                 ##print (next_cell)
                 if is_destination(next_cell,dest):
-                    draw_cell(WIN,cell_size,dest,detail_cell(grid_infor,dest),dark_red)
+                    draw_cell(WIN,cell_size,border_width,dest,detail_cell(grid_infor,dest),dark_red)
                     grid_infor[next_cell[0]][next_cell[1]].parent = current_cell
-                    len_path = trace_path(WIN,cell_size,grid_infor, start, dest)
+                    len_path = trace_path(WIN,cell_size,border_width,grid_infor, start, dest)
 
                     return "Success!!!\nLengthPath: " + str(len_path) + "\nClosed cell:" + str(length_closed_list(is_close_cell))
                 
@@ -266,7 +267,7 @@ def Astar(grid,start, dest,delay_time,chooseHeuristic,WIDTH = 1350,HEIGHT=650, n
                         grid_infor[next_cell[0]][next_cell[1]].h = h_new_next_cell
                         grid_infor[next_cell[0]][next_cell[1]].f = f_new_next_cell
                         # draw next_cell
-                        draw_cell(WIN,cell_size,next_cell,detail_cell(grid_infor,next_cell),green)
+                        draw_cell(WIN,cell_size,border_width,next_cell,detail_cell(grid_infor,next_cell),green)
 
         # pygame.time.delay(delay_time)
     
