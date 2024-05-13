@@ -95,7 +95,7 @@ class Cell:
         self.g = float("inf")
         self.f = float("inf")
         self.h = 0.0
-        self.parent = [0,0]
+        self.parent = None
 
 def is_wall(grid, cell):
     return grid[cell[0]][cell[1]] == 1
