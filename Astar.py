@@ -284,7 +284,7 @@ def Astar(grid,start, dest,delay_time,chooseHeuristic,WIDTH = 1350,HEIGHT=650, n
                 running = False
                 pygame.quit()
 
-    return "Can finding !!!\nClosed cell:" + str(length_closed_list(is_close_cell))
+    return "Can't finding !!!\nClosed cell:" + str(length_closed_list(is_close_cell))
 
 
 
