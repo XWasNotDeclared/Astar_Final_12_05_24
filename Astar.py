@@ -24,6 +24,13 @@ yellow= (255, 246, 69) #path color
 dark_red = (255, 169, 89)
 light_red = (255, 51, 238) #curent cell color
 gray = (217, 216, 212) #gray
+border_color = black
+wall_color=(31, 31, 31)
+not_wall_color = white
+
+
+border_width = 0.5
+
 
 def draw_maze(WIN, maze,cell_size):
     rows = len(maze)
@@ -31,15 +38,17 @@ def draw_maze(WIN, maze,cell_size):
     for row in range(rows):
         for col in range(cols):
             if maze[row][col] == 1:
-                color = black
+                color = wall_color
             else:
-                color = white
-            pygame.draw.rect(WIN,color,(col*cell_size,row*cell_size,cell_size,cell_size),0)
+                color = not_wall_color
+
+            pygame.draw.rect(WIN,border_color,(col*cell_size,row*cell_size,cell_size,cell_size),0)
+            pygame.draw.rect(WIN,color,(col*cell_size+border_width,row*cell_size+border_width,cell_size-2*border_width,cell_size-2*border_width),0)
 
 def draw_cell(WIN,cell_size, cell_coord, text, bg_color, text_color = black):
     text_size = int(cell_size*9/35)
     Font = pygame.font.Font(None,text_size)
-    pygame.draw.rect(WIN, bg_color, (cell_coord[1]*cell_size, cell_coord[0]*cell_size, cell_size, cell_size),0)
+    pygame.draw.rect(WIN, bg_color, (cell_coord[1]*cell_size+border_width, cell_coord[0]*cell_size+border_width, cell_size-2*border_width, cell_size-2*border_width),0)
     for i,item in enumerate(text):
         ##
         text_surface = Font.render(item,True,text_color)
