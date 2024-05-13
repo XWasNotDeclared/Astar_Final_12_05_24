@@ -80,7 +80,7 @@ def main():
 
     # Create entry boxes
     entry_boxes = []
-    descriptions = ["SoHang,SoCot:", "XacSuat:", "Delay(mil):", "Start (ex: 0,0):", "End (ex: 1,1):"]
+    descriptions = ["SoHang,SoCot(1:2):", "XacSuat:", "Delay(mil):", "Start (ex: 0,0):", "End (ex: 1,1):"]
     for i, desc in enumerate(descriptions):
         label = tk.Label(root, text=desc, font=("Arial", 14))
         label.grid(row=i, column=0, sticky="w", padx=10, pady=5)

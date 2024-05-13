@@ -42,7 +42,7 @@ def draw_maze(WIN, maze,cell_size,border_width):
             else:
                 color = not_wall_color
 
-            pygame.draw.rect(WIN,border_color,(col*cell_size,row*cell_size,cell_size,cell_size),0)
+            #pygame.draw.rect(WIN,border_color,(col*cell_size,row*cell_size,cell_size,cell_size),0)
             pygame.draw.rect(WIN,color,(col*cell_size+border_width,row*cell_size+border_width,cell_size-2*border_width,cell_size-2*border_width),0)
 
 def draw_cell(WIN,cell_size,border_width, cell_coord, text, bg_color, text_color = black):
@@ -145,7 +145,7 @@ def detail_cell(grid_infor, cell):
     h = round(grid_infor[cell[0]][cell[1]].h, 2)
     f = round(grid_infor[cell[0]][cell[1]].f, 2)
     parent = grid_infor[cell[0]][cell[1]].parent
-    return [str(cell),str([g,h,f]),"p"+str(parent),]
+    return [str(cell),"p"+str(parent),str([g,h]),"F: "+str(f),]
     # return ['g: '+str(g),'h: '+str(h),'f: '+str(f),'par: '+str(parent)]
 
 def cal_cell_size(grid,width,height):
@@ -224,7 +224,7 @@ def Astar(grid,start, dest,delay_time,chooseHeuristic,WIDTH = 1350,HEIGHT=650, n
     open_list = PriorityQueue()
     open_list.push((0.0,start)) # add start to open_list with f_start is 0
 
-
+    WIN.fill(border_color)
     draw_maze(WIN,grid,cell_size,border_width)
     pygame.display.update()
     draw_cell(WIN,cell_size,border_width,start,detail_cell(grid_infor,start),cyan)
